@@ -4,8 +4,8 @@ type Game {
   createdAt: Moment
   name: String
 
-  #players: [Player!]!
-  #currentPlayer: Player
+  players: [Player!]!
+  currentPlayer: Player
 
   #bank: Bank!
   #stars: [Star!]!
@@ -14,24 +14,12 @@ type Game {
 }
 """
 
-GameQuerySchema = """
-extend type Query {
-  game(id: ID, name: String): Game
-}
-"""
-
-GameMutationSchema = """
-extend type Mutation {
-  createGame(name: String!): Game
-}
-"""
-
 module.exports = -> [
   GameSchema
-  GameQuerySchema
-  GameMutationSchema
+
   require './scalars/moment'
-  #require './player'
+
+  require './player'
   #require './bank'
   #require './star'
   #require './ship'

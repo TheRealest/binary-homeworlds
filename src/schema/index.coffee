@@ -1,22 +1,19 @@
 QuerySchema = "type Query {
-  players: [Player!]!
-  player(id: ID!): Player
+  game(id: ID, name: String): Game
+  games: [Game!]!
+  player(id: ID, name: String): Player
 }"
 
 MutationSchema = "type Mutation {
+  createGame(name: String!): Game
   createPlayer(name: String!): Player
+  joinGame(playerId: String!, gameId: String!): Boolean!
 }"
-
-PlayerSchema = "type Player {
-  id: ID!
-  name: String!
-} "
-
 
 module.exports = [
   QuerySchema,
   MutationSchema,
-  PlayerSchema
 
   require './game'
+  require './player'
 ]

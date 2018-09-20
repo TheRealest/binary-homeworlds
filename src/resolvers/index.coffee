@@ -1,18 +1,12 @@
 RootResolvers =
-  Query:
-    players: (_parent, _args, { dataSources: {storage} }) ->
-      return storage.getPlayers()
-    player: (_parent, { id }, { dataSources: {storage} }) ->
-      return storage.findPlayer id
-
-  Mutation:
-    createPlayer: (_parent, { name }, { dataSources: {storage} }) ->
-      storage.createPlayer name
+  Query: {}
+  Mutation: {}
 
 module.exports = [
   RootResolvers
 
   require './game'
+  require './player'
 
   require './scalars/moment'
 ]
