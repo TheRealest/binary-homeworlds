@@ -1,9 +1,14 @@
 moment = require 'moment'
 uuid = require 'uuid'
 
-memoryStorage =
-  games: []
-  players: []
+MODELS = [
+  require '../models/game'
+  require '../models/player'
+]
+memoryStorage = do ->
+  storage = {}
+  storage[collectionName] = [] for { collectionName } in MODELS
+  return storage
 
 # NOTE: the objects returned from this connector are the actual objects in storage in memory -- do
 # not try to modify them, instead use the proper methods
@@ -25,11 +30,14 @@ module.exports = class MemoryStorageConnector
   findAll: (filter) ->
     return @_getCollection().filter(@_documentMatchesPropertyFilter.bind(@, filter))
 
+  all: ->
+    return @_getCollection().slice()
+
   get: (id) ->
     return @find { id }
 
   ## DOCUMENT MODIFIERS
-  create: (doc) ->
+  add: (doc) ->
     @_getCollection().push doc
 
     doc.id ||= uuid()
@@ -65,8 +73,10 @@ module.exports = class MemoryStorageConnector
     return collection
 
   _documentMatchesPropertyFilter: (filter, doc) ->
-    return Object.keys(filter).reduce (allMatch, key) ->
-      return allMatch && doc[key] == filter[key]
+    return Object.keys(filter).reduce (allPriorMatch, key) ->
+      exactMatch = doc[key] == filter[key]
+      containsMatch = Array.isArray(doc[key]) && doc[key].includes(filter[key])
+      return allPriorMatch && (exactMatch || containsMatch)
     , true
 
   _getArrayProperty: (id, arrayProp) ->
