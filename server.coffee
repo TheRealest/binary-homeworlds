@@ -5,6 +5,7 @@ session = require 'express-session'
 typeDefs = require './src/schema'
 resolvers = require './src/resolvers'
 { MemoryStorageConnector } = require './src/connectors'
+modelClasses = require './src/models'
 
 PORT = 4000
 
@@ -18,7 +19,13 @@ app.use session
 serverOptions = {
   typeDefs
   resolvers
-  dataSources: -> { storage: new MemoryStorageConnector }
+  context: (context) ->
+    storage = new MemoryStorageConnector
+    models = {}
+    for modelName, modelClass of modelClasses
+      models[modelName] = new modelClass storage
+
+    return Object.assign context, { models }
 }
 server = new ApolloServer serverOptions
 server.applyMiddleware { app }
