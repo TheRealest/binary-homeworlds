@@ -12,4 +12,11 @@ PlayerSchema = "type Player {
   name: String!
 } "
 
-module.exports = [ QuerySchema, MutationSchema, PlayerSchema ]
+
+module.exports = [
+  QuerySchema,
+  MutationSchema,
+  PlayerSchema
+
+  require './game'
+]

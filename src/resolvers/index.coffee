@@ -1,4 +1,4 @@
-module.exports =
+RootResolvers =
   Query:
     players: (_parent, _args, { dataSources: {storage} }) ->
       return storage.getPlayers()
@@ -8,3 +8,11 @@ module.exports =
   Mutation:
     createPlayer: (_parent, { name }, { dataSources: {storage} }) ->
       storage.createPlayer name
+
+module.exports = [
+  RootResolvers
+
+  require './game'
+
+  require './scalars/moment'
+]
