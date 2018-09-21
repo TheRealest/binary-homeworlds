@@ -25,16 +25,17 @@ RootResolvers =
 
   Mutation:
     createGame: (_parent, { input: {name} }, { models: {Game} }) ->
-      return Game.createGame name
+      return Game.create name
 
     createPlayer: (_parent, { input: {name} }, { models: {Player} }) ->
-      return Player.createPlayer name
+      return Player.create name
     joinGame: (_parent, { input: {playerId, gameId} }, { models: {Game, Player} }) ->
       Game.addPlayer gameId, playerId
       return Player.getById playerId
 
-    createShip: (_parent, { input: {name} }, { models: {Ship} }) ->
-      return Ship.createShip name
+    createShip: (_parent, { input: {ownerId, gamePiece} }, { models: {Ship, GamePiece} }) ->
+      {id: gamePieceId} = GamePiece.create gamePiece
+      return Ship.create ownerId, gamePieceId
 
 module.exports = [
   RootResolvers

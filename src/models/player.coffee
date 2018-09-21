@@ -7,11 +7,11 @@ module.exports = class Player extends BaseModel
     return @_collectionConnector()
       .find { name }
 
-  createPlayer: (name) ->
+  create: (name) ->
     return @_collectionConnector()
-      .add @_buildPlayer {name}
+      .add @build {name}
 
-  _buildPlayer: ({ name }) ->
+  build: ({ name }) ->
     return {
       name
     }
