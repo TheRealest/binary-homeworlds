@@ -7,21 +7,36 @@ type Game {
   players: [Player!]!
   currentPlayer: Player
 
-  #bank: Bank!
+  ships: [Ship!]!
   #stars: [Star!]!
-  #ships: [Ship!]!
   #homeworlds: [Homeworld!]!
+  #bank: Bank!
+}
+"""
+
+CreateGameInput = """
+input CreateGameInput {
+  name: String!
+}
+"""
+
+JoinGameInput = """
+input JoinGameInput {
+  playerId: String!
+  gameId: String!
 }
 """
 
 module.exports = -> [
   GameSchema
+  CreateGameInput
+  JoinGameInput
 
   require './scalars/moment'
 
   require './player'
   #require './bank'
   #require './star'
-  #require './ship'
+  require './ship'
   #require './homeworld'
 ]

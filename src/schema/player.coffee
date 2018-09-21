@@ -8,12 +8,15 @@ type Player {
 }
 """
 
-PlayerMutationSchema = """
+CreatePlayerInput = """
+input CreatePlayerInput {
+  name: String!
+}
 """
 
 module.exports = -> [
   PlayerSchema
-  PlayerMutationSchema
+  CreatePlayerInput
 
   require './scalars/moment'
 
