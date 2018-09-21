@@ -8,5 +8,8 @@ module.exports = class BaseModel
     return @_collectionConnector()
       .get id
 
+  getAll: ->
+    return @_collectionConnector().all()
+
   _collectionConnector: ->
     return @connector.collection @collectionName

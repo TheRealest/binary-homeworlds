@@ -11,9 +11,6 @@ module.exports = class Game extends BaseModel
     return @_collectionConnector()
       .findAll {playerIds: playerId}
 
-  getAll: ->
-    return @_collectionConnector().all()
-
   createGame: (name) ->
     return @_collectionConnector()
       .add @_buildGame {name}
