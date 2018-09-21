@@ -22,5 +22,10 @@ module.exports = class Game extends BaseModel
   build: ({ name }) ->
     return {
       name
+      currentPlayerId: null
       playerIds: []
+      shipIds: []
+      starIds: []
+      homeworldIds: []
+      bankId: null
     }
