@@ -4,6 +4,8 @@ module.exports = class BaseModel
   constructor: (@connector) ->
     @collectionName = @constructor.collectionName
 
+  setModels: (@models) ->
+
   getById: (id) ->
     return @_collectionConnector()
       .get id

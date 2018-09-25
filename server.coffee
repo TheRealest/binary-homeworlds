@@ -24,6 +24,8 @@ serverOptions = {
     models = {}
     for modelName, modelClass of modelClasses
       models[modelName] = new modelClass storage
+    for _name, model of models
+      model.setModels models
 
     return Object.assign context, { models }
 }
